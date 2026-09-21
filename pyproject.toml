@@ -1,0 +1,44 @@
+[project]
+name = "xhs-video-mcp"
+version = "0.2.0a1"
+description = "MCP Server for creating videos from Xiaohongshu posts"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name = "sufferfml"}]
+dependencies = [
+    "mcp>=1.26.0,<2",
+    "playwright>=1.58.0,<2",
+    "Pillow>=11.3.0,<13",
+    "httpx>=0.28.1,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.25,<2",
+]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xhs_video_mcp"]
+
+[project.scripts]
+xhs-video-mcp = "xhs_video_mcp.server:main"
+xhs-video-workflow = "xhs_video_mcp.workflow:main"
+xhs-image-workflow = "xhs_video_mcp.image_workflow:main"
+xhs-video-plan-workflow = "xhs_video_mcp.video_plan_workflow:main"
+xhs-video-render-workflow = "xhs_video_mcp.video_render_workflow:main"
+xhs-combined-workflow = "xhs_video_mcp.combined_workflow:main"
+xhs-local-video = "xhs_video_mcp.local_workflow:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "examples", "scripts", "openclaw", "docs", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "SECURITY.md", "CONTRIBUTING.md", "CHANGELOG.md", "pyproject.toml", "uv.lock"]
