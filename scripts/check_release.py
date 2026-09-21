@@ -54,7 +54,7 @@ def main() -> None:
             if len(parts) == 2 and git('cat-file', '-t', parts[0]).strip() == b'blob':
                 inspect(parts[1], git('cat-file', 'blob', parts[0]))
         for line in git('log', '--all', '--format=%ae%n%ce').decode().splitlines():
-            if not line.endswith('@users.noreply.github.com'):
+            if not (line.endswith('@users.noreply.github.com') or line == 'noreply@github.com'):
                 findings.append(('commit-metadata', 'non-noreply-email'))
         inspect('commit-messages', git('log', '--all', '--format=%B'))
     for archive in args.archive:
