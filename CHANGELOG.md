@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Make non-noreply commit emails advisory without printing their values; keep
+  sensitive-content and secret checks blocking.
+- Add privacy-checker regression coverage and clarify contributor email choice
+  and the difference between initial open-source preparation and routine releases.
+
 ## 0.2.0a1 — 2026-09-21
 
 Initial prepared open-source snapshot (experimental, local single-user).

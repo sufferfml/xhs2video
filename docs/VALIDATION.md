@@ -9,8 +9,14 @@ never sign in, send messages, fetch real posts or require model/API credentials.
 - scripts/smoke.py performs a real offline FFmpeg render, probes the codec,
   resolution and duration, and opens a real MCP stdio connection to initialize,
   list tools and call get_video_config.
+- Release-checker regression tests cover advisory author/committer emails,
+  redacted output, and blocking sensitive content in working files, deleted
+  historical files, commit messages and wheel/source archives.
 - CI runs the locked environment on Ubuntu/Python 3.10, 3.11 and 3.12, plus full
-  history privacy checks and Gitleaks. The workflow's existence alone is not proof
+  history privacy checks and Gitleaks. Non-noreply commit emails produce advisory
+  warnings; sensitive-content and secret findings remain blocking. A warning
+  cannot determine whether an email was intentionally published.
+  The workflow's existence alone is not proof
   that a given commit passed; inspect that commit's Actions results.
 - Local release preparation verifies an isolated macOS/Python 3.11 environment
   and a separately installed wheel. Exact outcomes are recorded in the private

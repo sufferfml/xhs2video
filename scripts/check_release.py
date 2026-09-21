@@ -1,6 +1,7 @@
 """Check candidate source, commit metadata, history and build archives for privacy leaks.
 
 This supplements Gitleaks. Findings display rule names and file paths, never values.
+Non-noreply commit emails are advisory; sensitive content still blocks release.
 """
 import argparse
 from pathlib import Path
@@ -43,6 +44,7 @@ def main() -> None:
     parser.add_argument('--history', action='store_true')
     parser.add_argument('--archive', type=Path, action='append', default=[])
     args = parser.parse_args()
+    warnings = set()
     if not args.archive:
         paths = git('ls-files', '--cached', '--others', '--exclude-standard', '-z').decode().split('\0')
         for name in paths:
@@ -55,7 +57,7 @@ def main() -> None:
                 inspect(parts[1], git('cat-file', 'blob', parts[0]))
         for line in git('log', '--all', '--format=%ae%n%ce').decode().splitlines():
             if not (line.endswith('@users.noreply.github.com') or line == 'noreply@github.com'):
-                findings.append(('commit-metadata', 'non-noreply-email'))
+                warnings.add('non-noreply-email')
         inspect('commit-messages', git('log', '--all', '--format=%B'))
     for archive in args.archive:
         if archive.suffix == '.whl' or archive.suffix == '.zip':
@@ -68,11 +70,14 @@ def main() -> None:
                 for member in container.getmembers():
                     if member.isfile():
                         inspect(member.name, container.extractfile(member).read())
+    for rule in sorted(warnings):
+        print(f'WARN {rule}: commit-metadata; confirm the contributor intends '
+              'to publish their email (value omitted)')
     if findings:
         for name, rule in sorted(set(findings)):
             print(f'FAIL {rule}: {name}')
         raise SystemExit(1)
-    print('PASS: source/privacy/artifact checks (supplement with Gitleaks)')
+    print('PASS: blocking source/privacy/artifact checks (supplement with Gitleaks)')
 
 
 if __name__ == '__main__':
