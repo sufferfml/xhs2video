@@ -1,8 +1,8 @@
-# XHS To Video
+# XHS2Video
 
 将你有权使用的图片制作成 9:16 视频，可添加背景音乐、OCR 关键词高亮、画圈和下划线动画。
 
-**0.2.0a1 · 本地单人实验版。** 发布仓库名称是 `xhs-to-video-oss`，Python 包名为 `xhs-video-mcp`。
+**0.2.0a1 · 本地单人实验版。** 发布仓库名称是 `xhs2video`，Python 包名为 `xhs-video-mcp`。
 提供本地图片 CLI、MCP stdio 服务，以及实验性小红书链接解析和 OpenClaw 工作流模板。
 不提供公共网络服务或多人 Telegram 机器人的安全隔离保证。
 
@@ -11,8 +11,8 @@
 需要 Python 3.10–3.12（CI 验证范围）、FFmpeg。OCR 标注另需 Tesseract 和中文语言包。
 
 ```bash
-git clone https://github.com/sufferfml/xhs-to-video-oss.git
-cd xhs-to-video-oss
+git clone https://github.com/sufferfml/xhs2video.git
+cd xhs2video
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
