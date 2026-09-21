@@ -273,13 +273,11 @@
   },
   {
     "name": "pytest",
-    "version": "8.4.2",
-    "license_expression": null,
-    "license_classifiers": [
-      "License :: OSI Approved :: MIT License"
-    ],
-    "declared_license": "MIT",
-    "source": "https://pypi.org/pypi/pytest/8.4.2/json"
+    "version": "9.1.1",
+    "license_expression": "MIT",
+    "license_classifiers": [],
+    "declared_license": "",
+    "source": "https://pypi.org/pypi/pytest/9.1.1/json"
   },
   {
     "name": "pytest-asyncio",
